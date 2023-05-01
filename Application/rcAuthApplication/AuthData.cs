@@ -14,9 +14,10 @@ namespace rcAuthApplication
 
         public AuthEntity login(AuthEntity authEntity)
         {
-            string query = "SELECT u.id, u.name, u.status " +
+            string query = "SELECT u.id, u.login " +
                 "FROM Users u " +
-                $"WHERE u.name = '{authEntity.name}'";
+                $"WHERE u.login = '{authEntity.login}' " +
+                $"AND u.password = '{authEntity.password}'";
 
             return _repository.get<AuthEntity>(query);
         }
