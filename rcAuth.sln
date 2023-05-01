@@ -1,0 +1,68 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30320.27
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{9567A84D-7696-449A-B006-A05A1CE8C364}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{8F0D8257-64DB-4C9D-A4A9-2AABA7F7422F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{72ECD618-4075-419C-AC55-DCD6E53A8217}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{92688A0D-8F17-49C5-9B71-323277FE73B4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{C1AA260D-1C71-4BF3-8D51-891C5C8A7B1A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rcAuthDomain", "Domain\rcAuthDomain\rcAuthDomain.csproj", "{3885C616-9544-482A-94F3-961F1677219E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rcAuthApplication", "Application\rcAuthApplication\rcAuthApplication.csproj", "{07131DA3-BEFE-4430-9FB7-80806726003D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository", "Repository", "{000B2629-8910-4327-BB6B-56F7E9AFC76F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utils", "Utils", "{517E26E2-F758-4256-A5B5-800D87BBCCA1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{543800FD-1665-436B-A4B0-2C4124BB09F9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rcAuthRepository", "Infrastructure\Repository\rcAuthDatabase\rcAuthRepository.csproj", "{6D20C219-B666-4070-8EAC-2E563D61D4C1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rcAuthApi", "Application\rcAuthApi\rcAuthApi.csproj", "{DE2D61E2-11D0-402D-AD47-8043F4E90DCF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3885C616-9544-482A-94F3-961F1677219E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3885C616-9544-482A-94F3-961F1677219E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3885C616-9544-482A-94F3-961F1677219E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3885C616-9544-482A-94F3-961F1677219E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07131DA3-BEFE-4430-9FB7-80806726003D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07131DA3-BEFE-4430-9FB7-80806726003D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07131DA3-BEFE-4430-9FB7-80806726003D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07131DA3-BEFE-4430-9FB7-80806726003D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D20C219-B666-4070-8EAC-2E563D61D4C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D20C219-B666-4070-8EAC-2E563D61D4C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D20C219-B666-4070-8EAC-2E563D61D4C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D20C219-B666-4070-8EAC-2E563D61D4C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE2D61E2-11D0-402D-AD47-8043F4E90DCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE2D61E2-11D0-402D-AD47-8043F4E90DCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE2D61E2-11D0-402D-AD47-8043F4E90DCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE2D61E2-11D0-402D-AD47-8043F4E90DCF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3885C616-9544-482A-94F3-961F1677219E} = {9567A84D-7696-449A-B006-A05A1CE8C364}
+		{07131DA3-BEFE-4430-9FB7-80806726003D} = {8F0D8257-64DB-4C9D-A4A9-2AABA7F7422F}
+		{000B2629-8910-4327-BB6B-56F7E9AFC76F} = {72ECD618-4075-419C-AC55-DCD6E53A8217}
+		{517E26E2-F758-4256-A5B5-800D87BBCCA1} = {72ECD618-4075-419C-AC55-DCD6E53A8217}
+		{543800FD-1665-436B-A4B0-2C4124BB09F9} = {92688A0D-8F17-49C5-9B71-323277FE73B4}
+		{6D20C219-B666-4070-8EAC-2E563D61D4C1} = {000B2629-8910-4327-BB6B-56F7E9AFC76F}
+		{DE2D61E2-11D0-402D-AD47-8043F4E90DCF} = {8F0D8257-64DB-4C9D-A4A9-2AABA7F7422F}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2CA97BEA-5301-42D9-B933-F987A00D7642}
+	EndGlobalSection
+EndGlobal
