@@ -1,13 +1,28 @@
-﻿namespace rcAuthDomain
+﻿using System;
+
+namespace rcAuthDomain
 {
+    [Serializable]
     public class AuthEntity
     {
-        public long id { get; set; }
+        public long Id { get; set; }
 
-        public string login { get; set; }
+        public string Login { get; set; }
 
-        public string password { get; set; }
+        public string Password { get; set; }
 
-        public string token { get; set; }
+        public string Token { get; set; }
+
+        public AuthEntity() { }
+
+        public AuthEntity(AuthEntity entity) 
+        {
+            if (entity != null) {
+                this.Id = entity.Id;
+                this.Login = entity.Login;
+                this.Password = entity.Password;
+                this.Token = entity.Token;
+            }
+        }
     }
 }

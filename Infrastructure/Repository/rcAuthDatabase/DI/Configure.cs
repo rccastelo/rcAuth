@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using rcAuthRepository.Interfaces;
 
-namespace rcAuthRepository
+namespace rcAuthRepository.DI
 {
     public class Configure
     {

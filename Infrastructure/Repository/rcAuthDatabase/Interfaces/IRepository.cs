@@ -2,6 +2,6 @@
 {
     public interface IRepository
     {
-        Entity get<Entity>(string query);
+        Entity Get<Entity>(string query);
     }
 }

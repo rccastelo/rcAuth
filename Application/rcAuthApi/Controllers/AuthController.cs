@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using rcAuthApplication;
-using rcAuthDomain;
+using rcAuthApplication.Application;
+using rcAuthApplication.Interfaces;
 
 namespace rcAuthApi.Controllers
 {
@@ -8,19 +8,19 @@ namespace rcAuthApi.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly AuthService _authService;
+        private readonly IAuthService _authService;
 
-        public AuthController(AuthService authService)
+        public AuthController(IAuthService authService)
         {
             _authService = authService;
         }
 
         [HttpPost]
-        public IActionResult login(AuthEntity authEntity)
+        public IActionResult Login(AuthRequest authRequest)
         {
-            AuthEntity auth = _authService.login(authEntity);
+            AuthResponse response = _authService.Login(authRequest);
 
-            return Ok(auth);
+            return Ok(response);
         }
     }
 }

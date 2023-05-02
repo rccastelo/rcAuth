@@ -14,7 +14,7 @@ namespace rcAuthRepository
             this._configuration = configuration;
         }
 
-        public Entity get<Entity>(string query)
+        public Entity Get<Entity>(string query)
         {
             Entity entityRet;
 

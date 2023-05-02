@@ -7,7 +7,7 @@ namespace rcAuthApi.Controllers
     public class TestController : ControllerBase
     {
         [HttpGet]
-        public string get()
+        public string Get()
         {
             return "ok";
         }
