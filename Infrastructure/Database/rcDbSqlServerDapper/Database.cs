@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace rcAuthRepository
+namespace rcDbSqlServerDapper
 {
     public class Database : IDisposable
     {

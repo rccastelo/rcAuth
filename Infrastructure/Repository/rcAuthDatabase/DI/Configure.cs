@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using rcAuthRepository.Interfaces;
+using rcAuthRepository.Repository;
+using diDatabase = rcDbSqlServerDapper.Configure;
 
 namespace rcAuthRepository.DI
 {
@@ -7,8 +9,8 @@ namespace rcAuthRepository.DI
     {
         public static void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<Database, Database>();
-            services.AddScoped<IRepository, Repository>();
+            services.AddScoped<IAuthRepository, AuthRepository>();
+            diDatabase.ConfigureServices(services);
         }
     }
 }

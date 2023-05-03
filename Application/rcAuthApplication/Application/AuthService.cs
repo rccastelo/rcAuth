@@ -1,15 +1,16 @@
 ﻿using rcAuthApplication.Interfaces;
 using rcAuthDomain;
+using rcAuthRepository.Interfaces;
 
 namespace rcAuthApplication.Application
 {
     public class AuthService : IAuthService
     {
-        private readonly IAuthData _authData;
+        private readonly IAuthRepository _authRepository;
 
-        public AuthService(IAuthData authData)
+        public AuthService(IAuthRepository authRepository)
         {
-            _authData = authData;
+            _authRepository = authRepository;
         }
 
         public AuthResponse Login(AuthRequest authRequest)
@@ -19,7 +20,7 @@ namespace rcAuthApplication.Application
             if (authRequest != null) {
                 AuthModel authModelReq = new AuthModel(authRequest);
 
-                AuthModel authModelResp = _authData.Login(authModelReq);
+                AuthModel authModelResp = _authRepository.Login(authModelReq);
 
                 response.Item = authModelResp;
             }

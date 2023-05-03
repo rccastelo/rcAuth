@@ -1,8 +1,8 @@
 ﻿using rcAuthDomain;
 
-namespace rcAuthApplication.Interfaces
+namespace rcAuthRepository.Interfaces
 {
-    public interface IAuthData
+    public interface IAuthRepository
     {
         AuthModel Login(AuthModel authModel);
     }

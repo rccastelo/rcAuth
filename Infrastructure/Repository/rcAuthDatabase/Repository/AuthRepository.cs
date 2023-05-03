@@ -1,16 +1,16 @@
-﻿using rcAuthApplication.Interfaces;
-using rcAuthDomain;
+﻿using rcAuthDomain;
 using rcAuthRepository.Interfaces;
+using rcDbSqlServerDapper;
 
-namespace rcAuthApplication.Application
+namespace rcAuthRepository.Repository
 {
-    public class AuthData : IAuthData
+    public class AuthRepository : IAuthRepository
     {
-        private readonly IRepository _repository;
+        private readonly IData _data;
 
-        public AuthData(IRepository repository)
+        public AuthRepository(IData data)
         {
-            this._repository = repository;
+            this._data = data;
         }
 
         public AuthModel Login(AuthModel authModel)
@@ -20,7 +20,7 @@ namespace rcAuthApplication.Application
                 $"WHERE u.login = '{authModel.Login}' " +
                 $"AND u.password = '{authModel.Password}'";
 
-            return _repository.Get<AuthModel>(query);
+            return _data.Get<AuthModel>(query);
         }
     }
 }

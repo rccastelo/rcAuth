@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using rcAuthApplication.Application;
 using rcAuthApplication.Interfaces;
-using diDatabase = rcAuthRepository.DI.Configure;
+using diRepository = rcAuthRepository.DI.Configure;
 
 namespace rcAuthApplication.DI
 {
@@ -10,8 +10,7 @@ namespace rcAuthApplication.DI
         public static void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IAuthService, AuthService>();
-            services.AddScoped<IAuthData, AuthData>();
-            diDatabase.ConfigureServices(services);
+            diRepository.ConfigureServices(services);
         }
     }
 }

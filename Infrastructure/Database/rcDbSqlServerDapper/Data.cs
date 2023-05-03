@@ -1,15 +1,14 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Configuration;
-using rcAuthRepository.Interfaces;
 using System.Linq;
 
-namespace rcAuthRepository
+namespace rcDbSqlServerDapper
 {
-    public class Repository : IRepository
+    public class Data : IData
     {
         private IConfiguration _configuration;
 
-        public Repository(IConfiguration configuration) 
+        public Data(IConfiguration configuration) 
         {
             this._configuration = configuration;
         }
