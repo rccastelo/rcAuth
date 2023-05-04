@@ -14,6 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Domain\rcAuthDomain\rcAuthDomain.csproj" />
     <ProjectReference Include="..\..\Database\rcDbSqlServerDapper\rcDbSqlServerDapper.csproj" />
+    <ProjectReference Include="..\rcAuthData\rcAuthData.csproj" />
   </ItemGroup>
 
 </Project>

@@ -19,7 +19,7 @@ namespace rcAuthApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            diApplication.ConfigureServices(services);
+            diApplication.ConfigureServices(services, Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
