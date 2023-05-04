@@ -35,6 +35,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rcAuthRepository", "Infrast
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rcAuthData", "Infrastructure\Repository\rcAuthData\rcAuthData.csproj", "{07088A0A-8905-48CC-BAC9-8EC7120F914E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cryptography", "Cryptography", "{835A2F2A-C4CB-47B2-8A61-70ACD9DAB707}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rcCryptography", "Infrastructure\Cryptography\rcCryptography\rcCryptography.csproj", "{E89B6299-E169-4BF8-961F-A4FECA244D89}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +73,10 @@ Global
 		{07088A0A-8905-48CC-BAC9-8EC7120F914E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07088A0A-8905-48CC-BAC9-8EC7120F914E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07088A0A-8905-48CC-BAC9-8EC7120F914E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E89B6299-E169-4BF8-961F-A4FECA244D89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E89B6299-E169-4BF8-961F-A4FECA244D89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E89B6299-E169-4BF8-961F-A4FECA244D89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E89B6299-E169-4BF8-961F-A4FECA244D89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,6 +93,8 @@ Global
 		{BEDD2BCA-FD60-4FF0-8504-E91FE245BFA2} = {025F375B-E23A-48C8-9DF6-D91AE398F2E1}
 		{E4112C1A-7878-4AD9-B88C-94C41B0A3537} = {000B2629-8910-4327-BB6B-56F7E9AFC76F}
 		{07088A0A-8905-48CC-BAC9-8EC7120F914E} = {000B2629-8910-4327-BB6B-56F7E9AFC76F}
+		{835A2F2A-C4CB-47B2-8A61-70ACD9DAB707} = {72ECD618-4075-419C-AC55-DCD6E53A8217}
+		{E89B6299-E169-4BF8-961F-A4FECA244D89} = {835A2F2A-C4CB-47B2-8A61-70ACD9DAB707}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2CA97BEA-5301-42D9-B933-F987A00D7642}

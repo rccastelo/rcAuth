@@ -1,6 +1,7 @@
 ﻿using rcAuthApplication.Interfaces;
 using rcAuthDomain;
 using rcAuthRepository.Interfaces;
+using rcCryptography;
 
 namespace rcAuthApplication.Application
 {
@@ -19,6 +20,10 @@ namespace rcAuthApplication.Application
 
             if (authRequest != null) {
                 AuthModel authModelReq = new AuthModel(authRequest);
+
+                string secret = Crypto.GetSecretSHA512(authModelReq.Login + authModelReq.Password);
+
+                authModelReq.Password = secret;
 
                 AuthModel authModelResp = _authRepository.Login(authModelReq);
 

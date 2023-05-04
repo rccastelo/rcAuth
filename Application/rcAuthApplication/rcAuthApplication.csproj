@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Domain\rcAuthDomain\rcAuthDomain.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Cryptography\rcCryptography\rcCryptography.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Repository\rcAuthRepository\rcAuthRepository.csproj" />
   </ItemGroup>
 
