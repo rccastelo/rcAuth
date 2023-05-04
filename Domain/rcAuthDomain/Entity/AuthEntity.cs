@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace rcAuthDomain
+namespace rcAuthDomain.Entity
 {
     [Serializable]
     public class AuthEntity

@@ -1,4 +1,4 @@
-﻿using rcAuthDomain;
+﻿using rcAuthDomain.Model;
 
 namespace rcAuthData.Interfaces
 {

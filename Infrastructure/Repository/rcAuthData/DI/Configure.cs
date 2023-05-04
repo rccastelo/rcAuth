@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using rcAuthData.DapperDatas;
-using rcAuthData.EFDatas;
+using rcAuthData.DatasDapper;
+using rcAuthData.DatasEF;
 using rcAuthData.Interfaces;
 using diDbSqlServerDapper = rcDbSqlServerDapper.Configure;
 using diDbSqlServerEF = rcDbSqlServerEF.Configure;

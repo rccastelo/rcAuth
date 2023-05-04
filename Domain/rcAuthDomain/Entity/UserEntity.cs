@@ -1,8 +1,9 @@
-﻿using System;
+﻿using rcAuthDomain.Base;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace rcAuthDomain
+namespace rcAuthDomain.Entity
 {
     [Serializable]
     [Table("Users")]

@@ -1,4 +1,4 @@
-﻿using rcAuthDomain;
+﻿using rcAuthDomain.Entity;
 
 namespace rcAuthApplication.Application
 {

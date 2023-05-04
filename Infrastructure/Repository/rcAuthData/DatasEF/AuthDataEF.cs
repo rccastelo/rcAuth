@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using rcAuthData.Interfaces;
-using rcAuthDomain;
+using rcAuthDomain.Entity;
+using rcAuthDomain.Model;
 using rcDbSqlServerEF;
 using System.Linq;
 
-namespace rcAuthData.EFDatas
+namespace rcAuthData.DatasEF
 {
     public class AuthDataEF : DataEF, IAuthData
     {

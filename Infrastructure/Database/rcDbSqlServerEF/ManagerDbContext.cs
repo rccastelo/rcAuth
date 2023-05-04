@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using rcAuthDomain;
+using rcAuthDomain.Entity;
 
 namespace rcDbSqlServerEF
 {

@@ -1,5 +1,5 @@
 ﻿using rcAuthData.Interfaces;
-using rcAuthDomain;
+using rcAuthDomain.Model;
 using rcAuthRepository.Interfaces;
 
 namespace rcAuthRepository.Repository

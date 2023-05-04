@@ -1,11 +1,11 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Configuration;
 using rcAuthData.Interfaces;
-using rcAuthDomain;
+using rcAuthDomain.Model;
 using rcDbSqlServerDapper;
 using System.Linq;
 
-namespace rcAuthData.DapperDatas
+namespace rcAuthData.DatasDapper
 {
     public class AuthDataDapper : DataDapper, IAuthData
     {

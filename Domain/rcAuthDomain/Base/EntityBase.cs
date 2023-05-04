@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace rcAuthDomain
+namespace rcAuthDomain.Base
 {
     [Serializable]
     public abstract class EntityBase

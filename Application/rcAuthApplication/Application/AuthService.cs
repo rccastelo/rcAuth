@@ -1,5 +1,5 @@
 ﻿using rcAuthApplication.Interfaces;
-using rcAuthDomain;
+using rcAuthDomain.Model;
 using rcAuthRepository.Interfaces;
 using rcCryptography;
 
@@ -17,17 +17,31 @@ namespace rcAuthApplication.Application
         public AuthResponse Login(AuthRequest authRequest)
         {
             AuthResponse response = new AuthResponse();
+            AuthModel authModelResp = null;
 
             if (authRequest != null) {
                 AuthModel authModelReq = new AuthModel(authRequest);
 
-                string secret = Crypto.GetSecretSHA512(authModelReq.Login + authModelReq.Password);
+                if (authModelReq.IsValid) {
+                    string secret = Crypto.GetSecretSHA512(authModelReq.Login + authModelReq.Password);
 
-                authModelReq.Password = secret;
+                    authModelReq.Password = secret;
 
-                AuthModel authModelResp = _authRepository.Login(authModelReq);
+                    authModelResp = _authRepository.Login(authModelReq);
+
+                    if (authModelResp == null) {
+                        response.IsValid = false;
+                        response.AddMessage("Usuário e/ou senha inválido(s)");
+                    }
+                } else {
+                    response.IsValid = authModelReq.IsValid;
+                    response.Messages = authModelReq.Messages;
+                }
 
                 response.Item = authModelResp;
+            } else {
+                response.IsValid = false;
+                response.AddMessage("Requisição não pode ser nula");
             }
 
             return response;

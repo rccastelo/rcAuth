@@ -1,11 +1,11 @@
-﻿using rcAuthDomain;
+﻿using rcAuthDomain.Entity;
 using System.Collections.Generic;
 
 namespace rcAuthApplication.Application
 {
     public class AuthResponse
     {
-        public bool Valid { get; set; }
+        public bool IsValid { get; set; }
         public bool Error { get; set; }
         public IList<string> Messages { get; set; }
         public AuthEntity Item { get; set; }
@@ -13,7 +13,7 @@ namespace rcAuthApplication.Application
 
         public AuthResponse()
         {
-            this.Valid = true;
+            this.IsValid = true;
             this.Error = false;
         }
 
@@ -21,7 +21,7 @@ namespace rcAuthApplication.Application
         {
             if (response != null)
             {
-                this.Valid = response.Valid;
+                this.IsValid = response.IsValid;
                 this.Error = response.Error;
 
                 if (response.Messages != null)
