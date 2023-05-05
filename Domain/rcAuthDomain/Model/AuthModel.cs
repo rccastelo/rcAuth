@@ -1,4 +1,5 @@
 ﻿using rcAuthDomain.Entity;
+using rcUtils;
 using System;
 using System.Collections.Generic;
 
@@ -45,7 +46,6 @@ namespace rcAuthDomain.Model
                 this.IsValid = false;
                 this.AddMessage("[Auth] não pode ser nulo");
             }
-            
         }
 
         private void Create(long id, string login, string password, string token) 
@@ -59,14 +59,20 @@ namespace rcAuthDomain.Model
                 this.IsValid = false;
                 this.AddMessage("Campo [login] não pode ser nulo");
             } else {
-                login = login.Trim();
-
                 if (String.IsNullOrWhiteSpace(login)) {
                     this.IsValid = false;
-                    this.AddMessage("Campo [login] deve ser informado");
-                } else if (login.Length < 3) {
-                    this.IsValid = false;
-                    this.AddMessage("Campo [login] deve possuir no mínimo 3 caracteres");
+                    this.AddMessage("Campo [login] deve ser preenchido");
+                } else {
+                    if (login.Length < 3) {
+                        this.IsValid = false;
+                        this.AddMessage("Campo [login] deve possuir no mínimo 3 caracteres");
+                    }
+
+                    if (!Validations.ValidateChars(login))
+                    {
+                        this.IsValid = false;
+                        this.AddMessage("Campo [login] possui caracteres inválidos");
+                    }
                 }
             }
 
@@ -74,14 +80,19 @@ namespace rcAuthDomain.Model
                 this.IsValid = false;
                 this.AddMessage("Campo [password] não pode ser nulo");
             } else {
-                password = password.Trim();
-
                 if (String.IsNullOrWhiteSpace(password)) {
                     this.IsValid = false;
-                    this.AddMessage("Campo [password] deve ser informado");
-                } else if (password.Length < 3) {
-                    this.IsValid = false;
-                    this.AddMessage("Campo [password] deve possuir no mínimo 3 caracteres");
+                    this.AddMessage("Campo [password] deve ser preenchido");
+                } else {
+                    if (password.Length < 3) {
+                        this.IsValid = false;
+                        this.AddMessage("Campo [password] deve possuir no mínimo 3 caracteres");
+                    }
+
+                    if (!Validations.ValidateChars(password)) {
+                        this.IsValid = false;
+                        this.AddMessage("Campo [password] possui caracteres inválidos");
+                    }
                 }
             }
 

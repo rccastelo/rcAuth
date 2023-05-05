@@ -1,5 +1,4 @@
-﻿using rcAuthDomain.Base;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -7,8 +6,13 @@ namespace rcAuthDomain.Entity
 {
     [Serializable]
     [Table("Users")]
-    public class UserEntity : EntityBase
+    public class UserEntity
     {
+        [Column("id", Order = 1)]
+        [Required]
+        [Key]
+        public long Id { get; set; }
+
         [Column("login", Order = 2)]
         [Required]
         [StringLength(50)]
