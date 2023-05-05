@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using rcAuthApplication.Application;
+using rcAuthApplication.Service;
 using rcAuthApplication.Interfaces;
 using diRepository = rcAuthRepository.DI.Configure;
 

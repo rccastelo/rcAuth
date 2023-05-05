@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using rcAuthApplication.Application;
 using rcAuthApplication.Interfaces;
+using rcAuthApplication.Transport;
+using Swashbuckle.AspNetCore.Annotations;
+using System;
 
 namespace rcAuthApi.Controllers
 {
-    [Route("[controller]")]
     [ApiController]
+    [Route("[controller]")]
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
@@ -16,11 +18,29 @@ namespace rcAuthApi.Controllers
         }
 
         [HttpPost]
+        [SwaggerOperation(
+            Summary = "Autenticação de usuário",
+            Description = "[pt-BR] Autenticação de usuário. \n\n " +
+                "[en-US] User authentication. ",
+            Tags = new[] { "Auth" }
+        )]
+        [ProducesResponseType(typeof(AuthRequest), 200)]
+        [ProducesResponseType(typeof(AuthRequest), 400)]
+        [ProducesResponseType(500)]
         public IActionResult Login(AuthRequest authRequest)
         {
-            AuthResponse response = _authService.Login(authRequest);
+            AuthResponse response = null;
 
-            return Ok(response);
+            try {
+                response = _authService.Login(authRequest);
+
+                return Ok(response);
+            } catch {
+                response = new AuthResponse() { IsValid = false };
+                response.AddMessage("Não foi possível autenticar o usuário");
+
+                return BadRequest(response);
+            }
         }
     }
 }

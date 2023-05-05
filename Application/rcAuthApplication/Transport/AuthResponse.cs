@@ -1,7 +1,7 @@
 ﻿using rcAuthDomain.Entity;
 using System.Collections.Generic;
 
-namespace rcAuthApplication.Application
+namespace rcAuthApplication.Transport
 {
     public class AuthResponse
     {

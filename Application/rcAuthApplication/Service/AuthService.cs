@@ -1,9 +1,10 @@
 ﻿using rcAuthApplication.Interfaces;
+using rcAuthApplication.Transport;
 using rcAuthDomain.Model;
 using rcAuthRepository.Interfaces;
 using rcCryptography;
 
-namespace rcAuthApplication.Application
+namespace rcAuthApplication.Service
 {
     public class AuthService : IAuthService
     {

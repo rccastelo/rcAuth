@@ -1,6 +1,6 @@
 ﻿using rcAuthDomain.Entity;
 
-namespace rcAuthApplication.Application
+namespace rcAuthApplication.Transport
 {
     public class AuthRequest : AuthEntity
     {

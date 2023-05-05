@@ -1,4 +1,4 @@
-﻿using rcAuthApplication.Application;
+﻿using rcAuthApplication.Transport;
 
 namespace rcAuthApplication.Interfaces
 {
