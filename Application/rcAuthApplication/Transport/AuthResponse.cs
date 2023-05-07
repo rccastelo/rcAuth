@@ -1,8 +1,10 @@
 ﻿using rcAuthDomain.Entity;
+using System;
 using System.Collections.Generic;
 
 namespace rcAuthApplication.Transport
 {
+    [Serializable]
     public class AuthResponse
     {
         public bool IsValid { get; set; }
@@ -15,38 +17,34 @@ namespace rcAuthApplication.Transport
         {
             this.IsValid = true;
             this.Error = false;
+            this.Messages = new List<string>();
         }
 
-        public AuthResponse(AuthResponse response)
+        public AuthResponse(AuthResponse response) : this()
         {
             if (response != null)
             {
                 this.IsValid = response.IsValid;
                 this.Error = response.Error;
 
-                if (response.Messages != null)
-                {
+                if (response.Messages != null) {
                     this.Messages = new List<string>(response.Messages);
                 }
 
-                if (response.List != null)
-                {
+                if (response.List != null) {
                     this.List = new List<AuthEntity>(response.List);
                 }
 
-                if (response.Item != null)
-                {
-                    this.Item = response.Item;
+                if (response.Item != null) {
+                    this.Item = new AuthEntity(response.Item);
                 }
             }
         }
 
         public void AddMessage(string message)
         {
-            if (!string.IsNullOrEmpty(message))
-            {
-                if (this.Messages == null)
-                {
+            if (!string.IsNullOrEmpty(message)) {
+                if (this.Messages == null) {
                     this.Messages = new List<string>();
                 }
 
@@ -56,10 +54,8 @@ namespace rcAuthApplication.Transport
 
         public void AddEntity(AuthEntity entity)
         {
-            if (entity != null)
-            {
-                if (this.List == null)
-                {
+            if (entity != null) {
+                if (this.List == null) {
                     this.List = new List<AuthEntity>();
                 }
 

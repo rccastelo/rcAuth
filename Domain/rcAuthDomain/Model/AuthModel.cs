@@ -8,7 +8,7 @@ namespace rcAuthDomain.Model
     public class AuthModel : AuthEntity
     {
         public bool IsValid { get; private set; }
-        public List<string> Messages { get; private set; }
+        public IList<string> Messages { get; private set; }
 
         public AuthModel() 
         {

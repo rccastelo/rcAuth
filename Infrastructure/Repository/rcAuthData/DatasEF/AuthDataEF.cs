@@ -9,10 +9,7 @@ namespace rcAuthData.DatasEF
 {
     public class AuthDataEF : DataEF, IAuthData
     {
-        public AuthDataEF(ManagerDbContext context) : base(context)
-        {
-
-        }
+        public AuthDataEF(ManagerDbContext context) : base(context) { }
 
         public AuthModel Login(AuthModel authModel)
         {

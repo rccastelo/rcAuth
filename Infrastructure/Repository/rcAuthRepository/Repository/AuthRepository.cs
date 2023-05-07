@@ -15,11 +15,7 @@ namespace rcAuthRepository.Repository
 
         public AuthModel Login(AuthModel authModel)
         {
-            AuthModel authModelRet = null;
-
-            authModelRet = _data.Login(authModel);
-
-            return authModelRet;
+            return _data.Login(authModel);
         }
     }
 }
