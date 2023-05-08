@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using rcAuthData.Interfaces;
 using rcAuthDomain.Entity;
-using rcAuthDomain.Model;
 using rcDbSqlServerEF;
 using System.Linq;
 
@@ -11,17 +10,21 @@ namespace rcAuthData.DatasEF
     {
         public AuthDataEF(ManagerDbContext context) : base(context) { }
 
-        public AuthModel Login(AuthModel authModel)
+        public AuthEntity Login(AuthEntity entity)
         {
-            UserEntity userEntity = this._context.Set<UserEntity>().AsNoTracking().SingleOrDefault(
-                et => ((et.Login == authModel.Login) && (et.Password == authModel.Password)));
+            AuthEntity auth = null;
 
-            AuthModel authModelRet = new AuthModel() {
-                Id = userEntity.Id,
-                Login = userEntity.Login
-            };
+            UserEntity user = this._context.Set<UserEntity>().AsNoTracking().SingleOrDefault(
+                et => ((et.Login == entity.Login) && (et.Password == entity.Password)));
 
-            return authModelRet;
+            if (user != null) {
+                auth = new AuthEntity() {
+                    Id = user.Id,
+                    Login = user.Login
+                };
+            }
+
+            return auth;
         }
     }
 }

@@ -9,7 +9,7 @@ namespace rcAuthApplication.Transport
     {
         public bool IsValid { get; set; }
         public bool Error { get; set; }
-        public IList<string> Messages { get; set; }
+        public IList<string> Messages { get; private set; }
         public AuthEntity Item { get; set; }
         public IList<AuthEntity> List { get; set; }
 
@@ -22,8 +22,7 @@ namespace rcAuthApplication.Transport
 
         public AuthResponse(AuthResponse response) : this()
         {
-            if (response != null)
-            {
+            if (response != null) {
                 this.IsValid = response.IsValid;
                 this.Error = response.Error;
 
@@ -49,6 +48,17 @@ namespace rcAuthApplication.Transport
                 }
 
                 this.Messages.Add(message);
+            }
+        }
+
+        public void AddMessages(IList<string> messages)
+        {
+            if ((messages != null) && (messages.Count > 0)) {
+                if (this.Messages == null) this.Messages = new List<string>();
+
+                foreach (string m in messages) {
+                    if (!String.IsNullOrWhiteSpace(m)) this.Messages.Add(m);
+                }
             }
         }
 

@@ -46,8 +46,7 @@ namespace rcAuthDomain.Entity
 
         public UserEntity(UserEntity entity)
         {
-            if (entity != null)
-            {
+            if (entity != null) {
                 this.Id = entity.Id;
                 this.Login = entity.Login;
                 this.Password = entity.Password;

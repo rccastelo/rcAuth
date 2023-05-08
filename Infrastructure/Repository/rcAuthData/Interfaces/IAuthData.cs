@@ -1,9 +1,9 @@
-﻿using rcAuthDomain.Model;
+﻿using rcAuthDomain.Entity;
 
 namespace rcAuthData.Interfaces
 {
     public interface IAuthData
     {
-        AuthModel Login(AuthModel authModel);
+        AuthEntity Login(AuthEntity entity);
     }
 }

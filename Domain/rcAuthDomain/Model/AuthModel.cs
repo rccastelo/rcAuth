@@ -5,124 +5,163 @@ using System.Collections.Generic;
 
 namespace rcAuthDomain.Model
 {
-    public class AuthModel : AuthEntity
+    public class AuthModel
     {
-        public bool IsValid { get; private set; }
-        public IList<string> Messages { get; private set; }
+        private AuthEntity _item = null;
+        private IList<AuthEntity> _list = null;
+        private IList<string> _messages = null;
 
-        public AuthModel() 
-        {
-            IsValid = true;
-            Messages = new List<string>();
-        }
+        public AuthModel() { }
 
-        public AuthModel(AuthModel model) 
+        public AuthModel(AuthModel model)
         {
             if (model != null) {
-                this.Id = model.Id;
-                this.Login = model.Login;
-                this.Password = model.Password;
-                this.Token = model.Token;
+                this._item = model._item == null ? null : new AuthEntity(model._item);
+                this._list = model._list == null ? null : new List<AuthEntity>(model._list);
                 this.IsValid = model.IsValid;
-                this.Messages = new List<string>(model.Messages);
+                this._messages = model._messages == null ? null : new List<string>(model._messages);
             }
         }
 
-        public AuthModel(long id, string login, string password, string token) : this()
+        public AuthModel(AuthEntity entity) 
         {
-            this.Create(id, login, password, token);
+            if (entity != null) this.SetItem(entity);
         }
 
-        public AuthModel(AuthEntity entity) : this()
+        public AuthModel(long id, string login, string password, string token)
         {
-            this.Create(entity);
+            this.SetItem(id, login, password, token);
         }
 
-        private void Create(AuthEntity entity)
+        public AuthEntity Item
+        {
+            get { return this._item; }
+            private set { }
+        }
+
+        public IList<AuthEntity> List
+        {
+            get { return this._list; }
+            private set { }
+        }
+
+        public bool IsValid { get; set; }
+
+        public IList<string> Messages
+        {
+            get { return this._messages; }
+            private set { }
+        }
+
+        public bool ValidModel
+        {
+            get { return this.ValidateModel(); }
+            private set { }
+        }
+
+        public void AddMessage(string message)
+        {
+            if (!string.IsNullOrWhiteSpace(message)) {
+                if (this._messages == null) this._messages = new List<string>();
+
+                this._messages.Add(message);
+            }
+        }
+
+        public void AddMessages(IList<string> messages)
+        {
+            if ((messages != null) && (messages.Count > 0)) {
+                if (this._messages == null) this._messages = new List<string>();
+
+                foreach (string m in messages) {
+                    if (!String.IsNullOrWhiteSpace(m)) this._messages.Add(m);
+                }
+            }
+        }
+
+        public void AddEntity(AuthEntity entity)
         {
             if (entity != null) {
-                this.Create(entity.Id, entity.Login, entity.Password, entity.Token);
-            } else {
-                this.IsValid = false;
-                this.AddMessage("[Auth] não pode ser nulo");
+                if (this._list == null) this._list = new List<AuthEntity>();
+
+                this._list.Add(entity);
             }
         }
 
-        private void Create(long id, string login, string password, string token) 
+        public void AddEntities(IList<AuthEntity> entities)
         {
-            if (id < 0) {
-                this.IsValid = false;
+            if ((entities != null) && (entities.Count > 0)) {
+                this._list = entities;
+            }
+        }
+
+        public void SetItem(AuthEntity entity)
+        {
+            if (entity != null) {
+                this.SetItem(entity.Id, entity.Login, entity.Password, entity.Token);
+            }
+        }
+
+        public void SetItem(long id, string login, string password, string token)
+        {
+            this._item = new AuthEntity() {
+                Id = id,
+                Login = login,
+                Password = password,
+                Token = token
+            };
+        }
+
+        private bool ValidateModel()
+        {
+            bool validity = true;
+
+            if (this._item.Id < 0) {
+                validity = false;
                 this.AddMessage("Campo [id] deve ser maior ou igual a zero");
             }
 
-            if (login == null) {
-                this.IsValid = false;
+            if (this._item.Login == null) {
+                validity = false;
                 this.AddMessage("Campo [login] não pode ser nulo");
             } else {
-                if (String.IsNullOrWhiteSpace(login)) {
-                    this.IsValid = false;
-                    this.AddMessage("Campo [login] deve ser preenchido");
+                if (String.IsNullOrWhiteSpace(this._item.Login)) {
+                    validity = false;
+                    this.AddMessage("Campo [login] deve estar preenchido");
                 } else {
-                    if (login.Length < 3) {
-                        this.IsValid = false;
+                    if (this._item.Login.Length < 3) {
+                        validity = false;
                         this.AddMessage("Campo [login] deve possuir no mínimo 3 caracteres");
                     }
 
-                    if (!Validations.ValidateChars(login))
-                    {
-                        this.IsValid = false;
+                    if (!Validations.ValidateChars(this._item.Login)) {
+                        validity = false;
                         this.AddMessage("Campo [login] possui caracteres inválidos");
                     }
                 }
             }
 
-            if (password == null) {
-                this.IsValid = false;
+            if (this._item.Password == null) {
+                validity = false;
                 this.AddMessage("Campo [password] não pode ser nulo");
             } else {
-                if (String.IsNullOrWhiteSpace(password)) {
-                    this.IsValid = false;
-                    this.AddMessage("Campo [password] deve ser preenchido");
+                if (String.IsNullOrWhiteSpace(this._item.Password)) {
+                    validity = false;
+                    this.AddMessage("Campo [password] deve estar preenchido");
                 } else {
-                    if (password.Length < 3) {
-                        this.IsValid = false;
+                    if (this._item.Password.Length < 3) {
+                        validity = false;
                         this.AddMessage("Campo [password] deve possuir no mínimo 3 caracteres");
                     }
 
-                    if (!Validations.ValidateChars(password)) {
-                        this.IsValid = false;
+                    if (!Validations.ValidateChars(this._item.Password)) {
+                        validity = false;
                         this.AddMessage("Campo [password] possui caracteres inválidos");
                     }
                 }
             }
 
-            if (this.IsValid) {
-                this.Id = id;
-                this.Login = login;
-                this.Password = password;
-                this.Token = token;
-            }
-        }
-
-        public void AddMessage(string message)
-        {
-            if (!String.IsNullOrWhiteSpace(message))
-            {
-                if (this.Messages == null) this.Messages = new List<string>();
-
-                this.Messages.Add(message);
-            }
-        }
-
-        public AuthEntity ToEntity()
-        {
-            return new AuthEntity()
-            {
-                Id = this.Id,
-                Login = this.Login,
-                Password = this.Password,
-                Token = this.Token
-            };
+            return validity;
         }
     }
 }

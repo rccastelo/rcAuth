@@ -1,7 +1,7 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Configuration;
 using rcAuthData.Interfaces;
-using rcAuthDomain.Model;
+using rcAuthDomain.Entity;
 using rcDbSqlServerDapper;
 using System.Linq;
 
@@ -14,22 +14,22 @@ namespace rcAuthData.DatasDapper
             
         }
 
-        public AuthModel Login(AuthModel authModel)
+        public AuthEntity Login(AuthEntity entity)
         {
-            AuthModel modelRet;
+            AuthEntity authRet;
 
             string command = "SELECT u.id, u.login " +
                 "FROM Users u " +
-                $"WHERE u.login = '{authModel.Login}' " +
-                $"AND u.password = '{authModel.Password}'";
+                $"WHERE u.login = '{entity.Login}' " +
+                $"AND u.password = '{entity.Password}'";
 
             _database.Open();
 
-            modelRet = _conn.Query<AuthModel>(command).FirstOrDefault();
+            authRet = _conn.Query<AuthEntity>(command).FirstOrDefault();
 
             _database.Close();
 
-            return modelRet;
+            return authRet;
         }
     }
 }

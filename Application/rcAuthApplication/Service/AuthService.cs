@@ -18,31 +18,32 @@ namespace rcAuthApplication.Service
         public AuthResponse Login(AuthRequest authRequest)
         {
             AuthResponse response = new AuthResponse();
-            AuthModel authModelResp = null;
 
             if (authRequest != null) {
-                AuthModel authModelReq = new AuthModel(authRequest);
+                AuthModel modelReq = new AuthModel(authRequest);
 
-                if (authModelReq.IsValid) {
-                    string secret = Crypto.GetSecretSHA512(authModelReq.Login + authModelReq.Password);
+                if (modelReq.ValidModel) {
+                    string secret = Crypto.GetSecretSHA512(modelReq.Item.Login + modelReq.Item.Password);
 
-                    authModelReq.Password = secret;
+                    modelReq.Item.Password = secret;
 
-                    authModelResp = _authRepository.Login(authModelReq);
+                    AuthModel modelResp = _authRepository.Login(modelReq);
 
-                    if (authModelResp == null) {
+                    if (modelResp == null) {
                         response.IsValid = false;
-                        response.AddMessage("Usuário e/ou senha inválido(s)");
+                        response.AddMessage("Não foi possível realizar o Login do usuário.");
+                    } else {
+                        response.IsValid = modelResp.IsValid;
+                        response.Item = modelResp.Item;
+                        response.AddMessages(modelResp.Messages);
                     }
                 } else {
-                    response.IsValid = authModelReq.IsValid;
-                    response.Messages = authModelReq.Messages;
+                    response.IsValid = false;
+                    response.AddMessages(modelReq.Messages);
                 }
-
-                response.Item = authModelResp;
             } else {
                 response.IsValid = false;
-                response.AddMessage("Requisição não pode ser nula");
+                response.AddMessage("Requisição não pode ser nula.");
             }
 
             return response;
