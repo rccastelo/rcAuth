@@ -1,6 +1,6 @@
 ﻿using rcAuthApplication.Interfaces;
 using rcAuthApplication.Transport;
-using rcAuthDomain.Model;
+using rcAuthDomain.Models;
 using rcAuthRepository.Interfaces;
 using rcCryptography;
 
@@ -22,10 +22,10 @@ namespace rcAuthApplication.Service
             if (authRequest != null) {
                 AuthModel modelReq = new AuthModel(authRequest);
 
-                if (modelReq.ValidModel) {
-                    string secret = Crypto.GetSecretSHA512(modelReq.Item.Login + modelReq.Item.Password);
+                if (modelReq.IsValidModel) {
+                    string secret = Crypto.GetSecretSHA512(modelReq.Entity.Login + modelReq.Entity.Password);
 
-                    modelReq.Item.Password = secret;
+                    modelReq.Entity.Password = secret;
 
                     AuthModel modelResp = _authRepository.Login(modelReq);
 
@@ -33,8 +33,8 @@ namespace rcAuthApplication.Service
                         response.IsValid = false;
                         response.AddMessage("Não foi possível realizar o Login do usuário.");
                     } else {
-                        response.IsValid = modelResp.IsValid;
-                        response.Item = modelResp.Item;
+                        response.IsValid = modelResp.IsValidResponse;
+                        response.SetItem(modelResp.Transport);
                         response.AddMessages(modelResp.Messages);
                     }
                 } else {

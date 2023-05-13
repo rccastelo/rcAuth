@@ -1,6 +1,6 @@
 ﻿using rcAuthData.Interfaces;
-using rcAuthDomain.Entity;
-using rcAuthDomain.Model;
+using rcAuthDomain.Entities;
+using rcAuthDomain.Models;
 using rcAuthRepository.Interfaces;
 
 namespace rcAuthRepository.Repository
@@ -18,14 +18,14 @@ namespace rcAuthRepository.Repository
         {
             AuthModel modelRet = null;
 
-            AuthEntity entity = _data.Login(authModel.Item);
+            AuthEntity entity = _data.Login(authModel.Entity);
 
             if (entity != null) {
                 modelRet = new AuthModel(entity);
-                modelRet.IsValid = true;
+                modelRet.IsValidResponse = true;
             } else {
                 modelRet = new AuthModel();
-                modelRet.IsValid = false;
+                modelRet.IsValidResponse = false;
                 modelRet.AddMessage("Usuário e/ou senha inválido(s)");
             }
 

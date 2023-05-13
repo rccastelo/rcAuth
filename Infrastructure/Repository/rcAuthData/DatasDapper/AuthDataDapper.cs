@@ -1,7 +1,7 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Configuration;
 using rcAuthData.Interfaces;
-using rcAuthDomain.Entity;
+using rcAuthDomain.Entities;
 using rcDbSqlServerDapper;
 using System.Linq;
 

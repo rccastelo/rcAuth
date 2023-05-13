@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using rcAuthDomain.Entity;
+using rcAuthDomain.Entities;
 
 namespace rcDbSqlServerEF
 {
@@ -20,6 +20,6 @@ namespace rcDbSqlServerEF
             optionsBuilder.UseSqlServer(this._connectionString);
         }
 
-        public DbSet<UserEntity> Users { get; set; }
+        public DbSet<PasswordEntity> Users { get; set; }
     }
 }

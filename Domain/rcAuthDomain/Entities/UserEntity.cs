@@ -2,44 +2,34 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace rcAuthDomain.Entity
+namespace rcAuthDomain.Entities
 {
     [Serializable]
     [Table("Users")]
     public class UserEntity
     {
-        [Column("id", Order = 1)]
+        [Column("pk_id_user", Order = 1)]
         [Required]
         [Key]
         public long Id { get; set; }
 
-        [Column("login", Order = 2)]
-        [Required]
-        [StringLength(50)]
-        public string Login { get; set; }
-
-        [Column("password", Order = 3)]
-        [Required]
-        [StringLength(200)]
-        public string Password { get; set; }
-
-        [Column("name", Order = 4)]
+        [Column("name", Order = 2)]
         [StringLength(200)]
         public string Name { get; set; }
 
-        [Column("description", Order = 5)]
+        [Column("description", Order = 3)]
         [StringLength(200)]
         public string Description { get; set; }
 
-        [Column("status", Order = 6)]
+        [Column("status", Order = 4)]
         [Required]
         public bool Status { get; set; }
 
-        [Column("createdAt", Order = 7)]
+        [Column("createdAt", Order = 5)]
         [Required]
         public DateTime CreatedAt { get; set; }
 
-        [Column("updatedAt", Order = 8)]
+        [Column("updatedAt", Order = 6)]
         public DateTime UpdatedAt { get; set; }
 
         public UserEntity() { }
@@ -48,8 +38,6 @@ namespace rcAuthDomain.Entity
         {
             if (entity != null) {
                 this.Id = entity.Id;
-                this.Login = entity.Login;
-                this.Password = entity.Password;
                 this.Name = entity.Name;
                 this.Description = entity.Description;
                 this.Status = entity.Status;

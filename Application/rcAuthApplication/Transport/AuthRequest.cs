@@ -1,13 +1,11 @@
-﻿using rcAuthDomain.Entity;
+﻿using rcAuthDomain.Transports;
 using System;
 
 namespace rcAuthApplication.Transport
 {
     [Serializable]
-    public class AuthRequest : AuthEntity
+    public class AuthRequest : AuthTransport
     {
-        public AuthRequest() : base() { }
-
-        public AuthRequest(AuthRequest request) : base(request) { }
+        
     }
 }

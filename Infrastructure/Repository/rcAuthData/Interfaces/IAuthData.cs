@@ -1,4 +1,4 @@
-﻿using rcAuthDomain.Entity;
+﻿using rcAuthDomain.Entities;
 
 namespace rcAuthData.Interfaces
 {
