@@ -8,8 +8,8 @@ namespace rcAuthApplication.Transport
     public class AuthResponse
     {
         private IList<string> _messages;
-        private AuthTransport _item;
-        private IList<AuthTransport> _list;
+        private AuthResponseItem _item;
+        private IList<AuthResponseItem> _list;
 
         public AuthResponse()
         {
@@ -22,18 +22,9 @@ namespace rcAuthApplication.Transport
             if (response != null) {
                 this.IsValid = response.IsValid;
                 this.IsError = response.IsError;
-
-                if (response.Messages != null) {
-                    this._messages = new List<string>(response.Messages);
-                }
-
-                if (response.List != null) {
-                    this._list = new List<AuthTransport>(response.List);
-                }
-
-                if (response.Item != null) {
-                    this._item = new AuthTransport(response.Item);
-                }
+                this.AddMessages(response.Messages);
+                this.AddList(response.List);
+                this.SetItem(response.Item);
             }
         }
 
@@ -45,12 +36,12 @@ namespace rcAuthApplication.Transport
             get { return this._messages; }
         }
 
-        public AuthTransport Item
+        public AuthResponseItem Item
         {
             get { return this._item; }
         }
 
-        public IList<AuthTransport> List
+        public IList<AuthResponseItem> List
         {
             get { return this._list; }
         }
@@ -76,26 +67,28 @@ namespace rcAuthApplication.Transport
                 }
             }
         }
-        public void AddTransport(AuthTransport transport)
+
+        public void AddItem(AuthResponseItem item)
         {
-            if (transport != null) {
-                if (this._list == null) this._list = new List<AuthTransport>();
-                this.List.Add(transport);
+            if (item != null)
+            {
+                if (this._list == null) this._list = new List<AuthResponseItem>();
+                this.List.Add(item);
             }
         }
 
-        public void AddList(IList<AuthTransport> list)
+        public void AddList(IList<AuthResponseItem> list)
         {
             if ((list != null) && (list.Count > 0)) {
-                if (this._list == null) this._list = new List<AuthTransport>();
+                if (this._list == null) this._list = new List<AuthResponseItem>();
 
-                foreach (AuthTransport transport in list) {
-                    if (transport != null) this._list.Add(transport);
+                foreach (AuthResponseItem item in list) {
+                    if (item != null) this._list.Add(item);
                 }
             }
         }
 
-        public void SetItem(AuthTransport item)
+        public void SetItem(AuthResponseItem item)
         {
             if (item != null) this._item = item;
         }

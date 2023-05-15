@@ -15,7 +15,7 @@ namespace rcAuthData.DatasEF
             AuthEntity auth = null;
 
             PasswordEntity user = this._context.Set<PasswordEntity>().AsNoTracking().SingleOrDefault(
-                et => ((et.Login == entity.Login) && (et.Password == entity.Password)));
+                et => ((et.Login == entity.Login) && (et.Password == entity.Secret)));
 
             if (user != null) {
                 auth = new AuthEntity() {

@@ -1,5 +1,6 @@
 ﻿using rcAuthDomain.Entities;
 using rcAuthDomain.Transports;
+using rcCryptography;
 using rcUtils;
 using System;
 using System.Collections.Generic;
@@ -12,16 +13,17 @@ namespace rcAuthDomain.Models
         private AuthEntity _entity = null;
         private IList<AuthEntity> _entities = null;
         private IList<string> _messages = null;
+        private bool _validModel = false;
 
         public AuthModel() { }
 
         public AuthModel(AuthModel model)
         {
             if (model != null) {
-                this._entity = model._entity == null ? null : new AuthEntity(model._entity);
-                this._entities = model._entities == null ? null : new List<AuthEntity>(model._entities);
+                this.SetEntity(model._entity);
+                this.AddEntities(model._entities);
                 this.IsValidResponse = model.IsValidResponse;
-                this._messages = model._messages == null ? null : new List<string>(model._messages);
+                this.AddMessages(model._messages);
             }
         }
 
@@ -30,9 +32,9 @@ namespace rcAuthDomain.Models
             if (entity != null) this.SetEntity(entity);
         }
 
-        public AuthModel(AuthTransport transport)
+        public AuthModel(AuthRequestItem request)
         {
-            if (transport != null) this.SetEntity(transport);
+            if (request != null) this.SetEntity(request);
         }
 
         public AuthModel(long id, string login, string password, string token)
@@ -43,23 +45,21 @@ namespace rcAuthDomain.Models
         public AuthEntity Entity
         {
             get { return this._entity; }
-            private set { }
         }
 
         public IList<AuthEntity> Entities
         {
             get { return this._entities; }
-            private set { }
         }
 
-        public AuthTransport Transport
+        public AuthResponseItem ResponseItem
         {
-            get { return this.GetTransport(); }
+            get { return this.GetResponseItem(); }
         }
 
-        public IList<AuthTransport> TransportList
+        public IList<AuthResponseItem> ResponseList
         {
-            get { return this.GetListTransport(); }
+            get { return this.GetResponseList(); }
         }
 
         public bool IsValidResponse { get; set; }
@@ -71,7 +71,7 @@ namespace rcAuthDomain.Models
 
         public bool IsValidModel
         {
-            get { return this.ValidateModel(); }
+            get { return this._validModel; }
         }
 
         public void AddMessage(string message)
@@ -104,7 +104,11 @@ namespace rcAuthDomain.Models
         public void AddEntities(IList<AuthEntity> entities)
         {
             if ((entities != null) && (entities.Count > 0)) {
-                this._entities = entities;
+                if (this._entities == null) this._entities = new List<AuthEntity>();
+
+                foreach (AuthEntity entity in entities) {
+                    if (entity != null) this._entities.Add(entity);
+                }
             }
         }
 
@@ -115,10 +119,10 @@ namespace rcAuthDomain.Models
             }
         }
 
-        private void SetEntity(AuthTransport transport)
+        private void SetEntity(AuthRequestItem request)
         {
-            if (transport != null) {
-                this.SetEntity(transport.Id, transport.Login, transport.Password, transport.Token);
+            if (request != null) {
+                this.SetEntity(0, request.Login, request.Password, string.Empty);
             }
         }
 
@@ -130,39 +134,48 @@ namespace rcAuthDomain.Models
                 Password = password,
                 Token = token
             };
+            this.ValidateModel();
+            this.GenerateSecret();
         }
 
-        private AuthTransport GetTransport()
+        private AuthResponseItem GetResponseItem()
         {
             if (this._entity == null) {
                 return null;
             } else {
-                return new AuthTransport() {
+                return new AuthResponseItem() {
                     Id = this._entity.Id,
-                    Login = this._entity.Login,
-                    Password = this._entity.Password,
-                    Token = this._entity.Token
+                    Login = this._entity.Login
                 };
             }
         }
 
-        private IList<AuthTransport> GetListTransport()
+        private IList<AuthResponseItem> GetResponseList()
         {
             if ((this._entities == null) || (this._entities.Count <= 0)) {
                 return null;
             } else {
-                return this._entities.Select(et => new AuthTransport() {
+                return this._entities.Select(et => new AuthResponseItem() {
                     Id = et.Id,
-                    Login = et.Login,
-                    Password = et.Password,
-                    Token = et.Token
+                    Login = et.Login
                 }).ToList();
             }
         }
 
-        private bool ValidateModel()
+        private void GenerateSecret()
+        {
+            if ((this._entity != null) &&
+                ((!string.IsNullOrWhiteSpace(this._entity.Login)) &&
+                (!string.IsNullOrWhiteSpace(this._entity.Password))))
+            {
+                this._entity.Secret = Crypto.GetSecretSHA512(this._entity.Login + this._entity.Password);
+            }
+        }
+
+        private void ValidateModel()
         {
             bool validity = true;
+            this._messages = null;
 
             if (this._entity.Id < 0) {
                 validity = false;
@@ -209,7 +222,7 @@ namespace rcAuthDomain.Models
                 }
             }
 
-            return validity;
+            this._validModel = validity;
         }
     }
 }

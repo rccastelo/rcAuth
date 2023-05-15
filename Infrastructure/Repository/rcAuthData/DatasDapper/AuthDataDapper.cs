@@ -18,10 +18,10 @@ namespace rcAuthData.DatasDapper
         {
             AuthEntity authRet;
 
-            string command = "SELECT u.id, u.login " +
-                "FROM Users u " +
-                $"WHERE u.login = '{entity.Login}' " +
-                $"AND u.password = '{entity.Password}'";
+            string command = "SELECT l.pk_id_login as id, l.login " +
+                "FROM Login l " +
+                $"WHERE l.login = '{entity.Login}' " +
+                $"AND l.secret = '{entity.Secret}'";
 
             _database.Open();
 

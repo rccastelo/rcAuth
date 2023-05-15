@@ -4,7 +4,7 @@ using System;
 namespace rcAuthApplication.Transport
 {
     [Serializable]
-    public class AuthRequest : AuthTransport
+    public class AuthRequest : AuthRequestItem
     {
         
     }

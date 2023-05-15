@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\Cryptography\rcCryptography\rcCryptography.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Utils\rcUtils\rcUtils.csproj" />
   </ItemGroup>
 

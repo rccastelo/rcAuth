@@ -23,22 +23,25 @@ namespace rcAuthApplication.Service
                 AuthModel modelReq = new AuthModel(authRequest);
 
                 if (modelReq.IsValidModel) {
-                    string secret = Crypto.GetSecretSHA512(modelReq.Entity.Login + modelReq.Entity.Password);
-
-                    modelReq.Entity.Password = secret;
-
                     AuthModel modelResp = _authRepository.Login(modelReq);
 
                     if (modelResp == null) {
                         response.IsValid = false;
+                        response.SetItem(modelReq.ResponseItem);
                         response.AddMessage("Não foi possível realizar o Login do usuário.");
                     } else {
+                        if (modelResp.IsValidResponse) {
+                            response.SetItem(modelResp.ResponseItem);
+                        } else {
+                            response.SetItem(modelReq.ResponseItem);
+                            response.AddMessages(modelResp.Messages);
+                        }
+
                         response.IsValid = modelResp.IsValidResponse;
-                        response.SetItem(modelResp.Transport);
-                        response.AddMessages(modelResp.Messages);
                     }
                 } else {
                     response.IsValid = false;
+                    response.SetItem(modelReq.ResponseItem);
                     response.AddMessages(modelReq.Messages);
                 }
             } else {

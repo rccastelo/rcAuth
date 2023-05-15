@@ -33,13 +33,17 @@ namespace rcAuthApi.Controllers
 
             try {
                 response = _authService.Login(authRequest);
-
-                return Ok(response);
             } catch {
-                response = new AuthResponse() { IsValid = false };
+                response = new AuthResponse();
+                response.IsValid = false;
+                response.IsError = true;
                 response.AddMessage("Não foi possível autenticar o usuário");
+            }
 
+            if (response.IsError || !response.IsValid) {
                 return BadRequest(response);
+            } else {
+                return Ok(response);
             }
         }
     }
