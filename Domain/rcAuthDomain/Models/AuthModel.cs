@@ -37,9 +37,9 @@ namespace rcAuthDomain.Models
             if (request != null) this.SetEntity(request);
         }
 
-        public AuthModel(long id, string login, string password, string token)
+        public AuthModel(long id, string login, string password, string token, string system)
         {
-            this.SetEntity(id, login, password, token);
+            this.SetEntity(id, login, password, token, system);
         }
 
         public AuthEntity Entity
@@ -115,24 +115,25 @@ namespace rcAuthDomain.Models
         private void SetEntity(AuthEntity entity)
         {
             if (entity != null) {
-                this.SetEntity(entity.Id, entity.Login, entity.Password, entity.Token);
+                this.SetEntity(entity.Id, entity.Login, entity.Password, entity.Token, entity.System);
             }
         }
 
         private void SetEntity(AuthRequestItem request)
         {
             if (request != null) {
-                this.SetEntity(0, request.Login, request.Password, string.Empty);
+                this.SetEntity(0, request.Login, request.Password, string.Empty, request.System);
             }
         }
 
-        private void SetEntity(long id, string login, string password, string token)
+        private void SetEntity(long id, string login, string password, string token, string system)
         {
             this._entity = new AuthEntity() {
                 Id = id,
                 Login = login,
                 Password = password,
-                Token = token
+                Token = token,
+                System = system
             };
             this.ValidateModel();
             this.GenerateSecret();
@@ -145,7 +146,8 @@ namespace rcAuthDomain.Models
             } else {
                 return new AuthResponseItem() {
                     Id = this._entity.Id,
-                    Login = this._entity.Login
+                    Login = this._entity.Login,
+                    Token = this._entity.Token
                 };
             }
         }
@@ -157,7 +159,8 @@ namespace rcAuthDomain.Models
             } else {
                 return this._entities.Select(et => new AuthResponseItem() {
                     Id = et.Id,
-                    Login = et.Login
+                    Login = et.Login,
+                    Token = et.Token
                 }).ToList();
             }
         }
@@ -172,6 +175,11 @@ namespace rcAuthDomain.Models
             }
         }
 
+        public void SetToken(string token)
+        {
+            this._entity.Token = token;
+        }
+
         private void ValidateModel()
         {
             bool validity = true;
@@ -179,45 +187,71 @@ namespace rcAuthDomain.Models
 
             if (this._entity.Id < 0) {
                 validity = false;
-                this.AddMessage("Campo [id] deve ser maior ou igual a zero");
+                this.AddMessage("Campo [Id] deve ser maior ou igual a zero");
             }
 
             if (this._entity.Login == null) {
                 validity = false;
-                this.AddMessage("Campo [login] não pode ser nulo");
+                this.AddMessage("Campo [Login] não pode ser nulo");
             } else {
                 if (String.IsNullOrWhiteSpace(this._entity.Login)) {
                     validity = false;
-                    this.AddMessage("Campo [login] deve estar preenchido");
+                    this.AddMessage("Campo [Login] deve estar preenchido");
                 } else {
-                    if (this._entity.Login.Length < 3) {
+                    if ((this._entity.Login.Length < 3) || (this._entity.Login.Length > 30)) {
                         validity = false;
-                        this.AddMessage("Campo [login] deve possuir no mínimo 3 caracteres");
+                        this.AddMessage("Campo [Login] deve possuir entre 3 e 30 caracteres");
                     }
 
-                    if (!Validations.ValidateChars(this._entity.Login)) {
+                    if (!Validations.ValidateChars_Login(this._entity.Login)) {
                         validity = false;
-                        this.AddMessage("Campo [login] possui caracteres inválidos");
+                        this.AddMessage("Campo [Login] possui caracteres inválidos");
+                        this.AddMessage("Caracteres válidos...");
+                        this.AddMessage(Validations.ValidChars_Login);
                     }
                 }
             }
 
             if (this._entity.Password == null) {
                 validity = false;
-                this.AddMessage("Campo [password] não pode ser nulo");
+                this.AddMessage("Campo [Password] não pode ser nulo");
             } else {
                 if (String.IsNullOrWhiteSpace(this._entity.Password)) {
                     validity = false;
-                    this.AddMessage("Campo [password] deve estar preenchido");
+                    this.AddMessage("Campo [Password] deve estar preenchido");
                 } else {
-                    if (this._entity.Password.Length < 3) {
+                    if ((this._entity.Password.Length < 3) || (this._entity.Password.Length > 30)) {
                         validity = false;
-                        this.AddMessage("Campo [password] deve possuir no mínimo 3 caracteres");
+                        this.AddMessage("Campo [Password] deve possuir entre 3 e 30 caracteres");
                     }
 
-                    if (!Validations.ValidateChars(this._entity.Password)) {
+                    if (!Validations.ValidateChars_Password(this._entity.Password)) {
                         validity = false;
-                        this.AddMessage("Campo [password] possui caracteres inválidos");
+                        this.AddMessage("Campo [Password] possui caracteres inválidos");
+                        this.AddMessage("Caracteres válidos...");
+                        this.AddMessage(Validations.ValidChars_Password);
+                    }
+                }
+            }
+
+            if (this._entity.System == null) {
+                validity = false;
+                this.AddMessage("Campo [System] não pode ser nulo");
+            } else {
+                if (String.IsNullOrWhiteSpace(this._entity.System)) {
+                    validity = false;
+                    this.AddMessage("Campo [System] deve estar preenchido");
+                } else {
+                    if ((this._entity.System.Length < 3) || (this._entity.System.Length > 30)) {
+                        validity = false;
+                        this.AddMessage("Campo [System] deve possuir entre 3 e 30 caracteres");
+                    }
+
+                    if (!Validations.ValidateChars_Name(this._entity.System)) {
+                        validity = false;
+                        this.AddMessage("Campo [System] possui caracteres inválidos");
+                        this.AddMessage("Caracteres válidos...");
+                        this.AddMessage(Validations.ValidChars_Name);
                     }
                 }
             }

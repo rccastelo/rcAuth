@@ -1,18 +1,21 @@
 ﻿using rcAuthApplication.Interfaces;
 using rcAuthApplication.Transport;
+using rcAuthDomain.Interfaces;
 using rcAuthDomain.Models;
 using rcAuthRepository.Interfaces;
-using rcCryptography;
 
 namespace rcAuthApplication.Service
 {
     public class AuthService : IAuthService
     {
         private readonly IAuthRepository _authRepository;
+        private readonly ITokenModel _tokenModel;
 
-        public AuthService(IAuthRepository authRepository)
+        public AuthService(IAuthRepository authRepository,
+                ITokenModel tokenModel)
         {
             _authRepository = authRepository;
+            _tokenModel = tokenModel;
         }
 
         public AuthResponse Login(AuthRequest authRequest)
@@ -25,12 +28,12 @@ namespace rcAuthApplication.Service
                 if (modelReq.IsValidModel) {
                     AuthModel modelResp = _authRepository.Login(modelReq);
 
-                    if (modelResp == null) {
-                        response.IsValid = false;
-                        response.SetItem(modelReq.ResponseItem);
-                        response.AddMessage("Não foi possível realizar o Login do usuário.");
-                    } else {
+                    if (modelResp != null) {
                         if (modelResp.IsValidResponse) {
+
+                            string token = _tokenModel.GenerateToken(modelResp.Entity);
+                            modelResp.SetToken(token);
+
                             response.SetItem(modelResp.ResponseItem);
                         } else {
                             response.SetItem(modelReq.ResponseItem);
@@ -38,6 +41,10 @@ namespace rcAuthApplication.Service
                         }
 
                         response.IsValid = modelResp.IsValidResponse;
+                    } else {
+                        response.IsValid = false;
+                        response.SetItem(modelReq.ResponseItem);
+                        response.AddMessage("Não foi possível realizar o Login do usuário.");
                     }
                 } else {
                     response.IsValid = false;

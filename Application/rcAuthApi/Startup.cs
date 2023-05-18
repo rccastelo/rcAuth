@@ -1,9 +1,12 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System;
 using diApplication = rcAuthApplication.DI.Configure;
 
 namespace rcAuthApi
@@ -19,27 +22,23 @@ namespace rcAuthApi
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder => {
+                builder.AllowAnyOrigin().
+                    AllowAnyMethod().
+                    AllowAnyHeader();
+            }));
+
             services.AddControllers();
+
             diApplication.ConfigureServices(services, Configuration);
 
-            services.AddSwaggerGen(options =>
-            {
-                options.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Title = "rcAuthApi",
-                    Description = "[pt-BR] API para autenticação de usuários. \n\n " +
-                        "[en-US] API for user authentication. ",
-                    Version = "1.0"
-                });
-
-                options.EnableAnnotations();
-            });
+            Authentication.SetAuthentication(services, Configuration);
+            Swagger.SetSwagger(services, Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
+            if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
             }
 
@@ -53,10 +52,12 @@ namespace rcAuthApi
 
             app.UseRouting();
 
+            app.UseCors("MyPolicy");
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
+            app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();
             });
         }

@@ -7,7 +7,7 @@ namespace rcCryptography
 {
     public static class Crypto
     {
-        private static string GetKeyMD5(string text)
+        public static string GetKeyMD5(string text)
         {
             return CryptlockMD5(text).Substring(0, 32);
         }

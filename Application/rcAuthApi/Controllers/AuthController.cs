@@ -33,7 +33,7 @@ namespace rcAuthApi.Controllers
 
             try {
                 response = _authService.Login(authRequest);
-            } catch {
+            } catch (Exception ex) {
                 response = new AuthResponse();
                 response.IsValid = false;
                 response.IsError = true;

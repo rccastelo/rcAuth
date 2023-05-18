@@ -6,13 +6,10 @@ namespace rcAuthDomain.Entities
     public class AuthEntity
     {
         public long Id { get; set; }
-
         public string Login { get; set; }
-
         public string Password { get; set; }
-
         public string Secret { get; set; }
-
+        public string System { get; set; }
         public string Token { get; set; }
 
         public AuthEntity() { }
@@ -24,6 +21,7 @@ namespace rcAuthDomain.Entities
                 this.Login = entity.Login;
                 this.Password = entity.Password;
                 this.Secret = entity.Secret;
+                this.System = entity.System;
                 this.Token = entity.Token;
             }
         }
