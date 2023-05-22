@@ -1,6 +1,5 @@
 ﻿using rcAuthDomain.Interfaces;
 using rcAuthDomain.Models;
-using rcUtils;
 using System;
 
 namespace rcAuthDomain.Business

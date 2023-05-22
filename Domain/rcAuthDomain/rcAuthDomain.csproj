@@ -12,8 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Infrastructure\Cryptography\rcCryptography\rcCryptography.csproj" />
-    <ProjectReference Include="..\..\Infrastructure\Utils\rcUtils\rcUtils.csproj" />
+    <ProjectReference Include="..\..\..\rcCryptography\rcCryptography\rcCryptography.csproj" />
+    <ProjectReference Include="..\..\..\rcUtils\rcUtils\rcUtils.csproj" />
   </ItemGroup>
 
 </Project>
