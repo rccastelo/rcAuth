@@ -20,6 +20,6 @@ namespace rcDbSqlServerEF
             optionsBuilder.UseSqlServer(this._connectionString);
         }
 
-        public DbSet<PasswordEntity> Users { get; set; }
+        public DbSet<LoginEntity> Login { get; set; }
     }
 }

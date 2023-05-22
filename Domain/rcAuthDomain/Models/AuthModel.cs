@@ -115,7 +115,8 @@ namespace rcAuthDomain.Models
         private void SetEntity(AuthEntity entity)
         {
             if (entity != null) {
-                this.SetEntity(entity.Id, entity.Login, entity.Password, entity.Token, entity.System);
+                this.SetEntity(entity.Id, entity.Login, entity.Password, entity.Token, entity.System,
+                        entity.DateFrom, entity.DateTo, entity.Weekday, entity.Weekend, entity.StartTime, entity.EndTime);
             }
         }
 
@@ -128,12 +129,25 @@ namespace rcAuthDomain.Models
 
         private void SetEntity(long id, string login, string password, string token, string system)
         {
+            this.SetEntity(id, login, password, token, system,
+                        DateTime.MinValue, DateTime.MinValue, false, false, TimeSpan.Zero, TimeSpan.Zero);
+        }
+
+        private void SetEntity(long id, string login, string password, string token, string system,
+                DateTime dateFrom, DateTime dateTo, bool weekday, bool weekend, TimeSpan startTime, TimeSpan endTime)
+        {
             this._entity = new AuthEntity() {
                 Id = id,
                 Login = login,
                 Password = password,
                 Token = token,
-                System = system
+                System = system,
+                DateFrom = dateFrom,
+                DateTo = dateTo,
+                Weekday = weekday,
+                Weekend = weekend,
+                StartTime = startTime,
+                EndTime = endTime
             };
             this.ValidateModel();
             this.GenerateSecret();

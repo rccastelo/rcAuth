@@ -10,11 +10,11 @@ namespace rcAuthData.DatasEF
     {
         public AuthDataEF(ManagerDbContext context) : base(context) { }
 
-        public AuthEntity Login(AuthEntity entity)
+        public AuthEntity Authenticate(AuthEntity entity)
         {
             AuthEntity auth = null;
 
-            PasswordEntity user = this._context.Set<PasswordEntity>().AsNoTracking().SingleOrDefault(
+            LoginEntity user = this._context.Set<LoginEntity>().AsNoTracking().SingleOrDefault(
                 et => ((et.Login == entity.Login) && (et.Password == entity.Secret)));
 
             if (user != null) {
@@ -25,6 +25,11 @@ namespace rcAuthData.DatasEF
             }
 
             return auth;
+        }
+
+        public AuthEntity Authorize(AuthEntity entity)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

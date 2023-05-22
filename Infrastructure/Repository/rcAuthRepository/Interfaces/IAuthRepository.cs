@@ -4,6 +4,7 @@ namespace rcAuthRepository.Interfaces
 {
     public interface IAuthRepository
     {
-        AuthModel Login(AuthModel model);
+        AuthModel Authenticate(AuthModel model);
+        AuthModel Authorize(AuthModel model);
     }
 }

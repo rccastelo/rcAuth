@@ -4,6 +4,7 @@ namespace rcAuthData.Interfaces
 {
     public interface IAuthData
     {
-        AuthEntity Login(AuthEntity entity);
+        AuthEntity Authenticate(AuthEntity entity);
+        AuthEntity Authorize(AuthEntity entity);
     }
 }

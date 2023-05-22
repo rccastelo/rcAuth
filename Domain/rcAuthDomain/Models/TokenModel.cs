@@ -16,9 +16,9 @@ namespace rcAuthDomain.Models
             JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
 
             Claim[] myClaims = new[] {
-                new Claim("login", authEntity.Login),
-                new Claim("system", "sistema"), //authEntity.System),
-                new Claim("guid", Guid.NewGuid().ToString())
+                new Claim(ClaimTypes.Name, authEntity.Login),
+                new Claim(ClaimTypes.System, authEntity.System),
+                new Claim(ClaimTypes.Sid, Guid.NewGuid().ToString())
             };
 
             string myHashKey = Crypto.GetKeyMD5("rc-authentication-key");
